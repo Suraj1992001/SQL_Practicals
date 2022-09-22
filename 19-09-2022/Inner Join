@@ -1,1 +1,25 @@
-
+create table order_table(Order_ID varchar(5), Customer_ID varchar(5) primary key, 
+                         Product_ID varchar(5), Order_Date varchar(5));               /*It Will Create A Table*/
+desc order_table;                                                                     /*It Will Describe The Structure Of The Table*/
+insert into order_table values('O101','C101','P101','2022-09-19');                    /*It Will Insert Values Into The Table*/
+drop table order_table;
+create table order_table(Order_ID varchar(5), Customer_ID varchar(5) primary key, Product_ID varchar(5), Order_Date varchar(10));
+insert into order_table values('O101','C101','P101','2022-09-19');
+insert into order_table values('O102','C102','P102','2022-09-18');
+insert into order_table values('O103','C103','P103','2022-09-17');
+insert into order_table values('O104','C104','P104','2022-09-11');
+insert into order_table values('O105','C105','P105','2022-09-10');
+select * from order_table;                                                            /*It Will Display The Entire Table*/
+delete from order_table where Order_Date='2022-09-10';                                /*It Will Delete A Data*/
+set sql_safe_updates=0;                                                               /*It Will Allow To Make Changes In Safe Mode*/
+delete from order_table where Order_Date='2022-09-10';
+create table customer_table(Customer_ID varchar(5) primary key, Customer_Name varchar(20), Contact_No int(10), Customer_Address varchar(20));
+drop table customer_table;
+insert into customer_table values('C101','Suraj Pramanik','965432365','Karol Bagh');
+insert into customer_table values('C102','Rohit Jana','989978004','Rajiv Chowk');
+insert into customer_table values('C103','Chandan Samanta','731902487','Punjabi Bagh');
+insert into customer_table values('C104','Rittick Maity','956436394','Patel Nagar');
+insert into customer_table values('C105','Shantanu Bera','879631452','Akshardham');
+select * from customer_table;
+select order_table.Order_ID, customer_table.Customer_Name from order_table 
+inner join customer_table on order_table.Customer_ID = customer_table.Customer_ID;  /*It will join the multiple tables and display the selected columns*/
