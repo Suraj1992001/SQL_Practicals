@@ -1,0 +1,54 @@
+show databases;															                                    /*It will show number of databases we have*/
+use suraj;																                                      /*It will select the database in which we have to create tables*/
+create table stud(roll varchar(10),user varchar(20),email varchar(20));         /*It will create a table*/
+desc stud;																                                      /*It will describe the structure of table*/
+
+create table anudip(roll varchar(10),user varchar(20),email varchar(20));
+desc anudip;
+insert into anudip(roll, user , email) values ('s101','Suraj','s@123');			    /*It will insert the data into the columns when we don't know the order of feilds*/
+select * from anudip;															                              /*It will select the whole table and display the data*/
+insert into anudip(email, roll , user) values ('a@456','s231','Susil');
+select * from anudip;
+insert into anudip values('s456','Rohit','g@651'),('s876','Chandan','j@546');   /*It will insert the data into the columns when we know the order of feilds*/
+select * from anudip;
+alter table anudip add column phone int(10);									                  /*It will modify the table*/
+insert into anudip values('d564','Mithu','m@879','965432365');
+update anudip set phone='731902487' where user='Susil';							            /*It will update the table data*/
+set sql_safe_updates=0;															                            /*It will help to update the data in safe mode*/															
+update anudip set phone='731902487' where user='Susil';
+select * from anudip;
+
+create table employee;
+create table employee(E_F_Name varchar(6), E_M_Name varchar(6), E_L_Name varchar(6), 
+E_Address varchar(20), E_City varchar(10), E_Phone_No int(10), 
+E_Age int(5), E_DOB varchar(10), E_Designation varchar(10), 
+E_Department varchar(10), E_Salary varchar(10), E_DOJoining varchar(10));
+drop table employee;															                              /*It will delete the table*/
+create table employee(E_ID varchar(5), E_F_Name varchar(6), E_M_Name varchar(6), 
+E_L_Name varchar(6), E_Address varchar(20), E_City varchar(10), E_Phone_No int(10), 
+E_Age int(5), E_DOB varchar(10), E_Designation varchar(10), E_Department varchar(10), 
+E_Salary varchar(10), E_DOJoining varchar(10));
+insert into employee values('E1001', 'Suraj' ,'Sai' ,'Bera' ,'Karol Bagh' ,'New Delhi' ,
+'965432365' ,'21' ,'2001/09/19' ,'Executive' ,'Finance' ,'Rs 10,000' ,'2022/09/01');
+select * from employee;	
+insert into employee values('E1002', 'Susil' ,'Arjun' ,'Patel' ,'Subhash Nagar' ,'New Delhi' ,
+'731902487' ,'22' ,'2000/01/22' ,'Operator' ,'HR' ,'Rs 30,000' ,'2022/01/01');
+insert into employee values('E1003', 'Rohit' ,'Aum' ,'Singh' ,'Rajendra Place' ,'New Delhi' ,
+'989978004' ,'20' ,'2002/04/16' ,'Financier' ,'Sales' ,'Rs 13,000' ,'2022/04/01');
+insert into employee values('E1004', 'Anish' ,'Veer' ,'Anand' ,'Dwarka' ,'New Delhi' ,
+'957159631' ,'21' ,'2001/05/4' ,'Marketer' ,'Account' ,'Rs 20,000' ,'2022/05/01');
+insert into employee values('E1005', 'Arin' ,'Krish' ,'Ahuja' ,'Noida' ,'New Delhi' ,
+'861597234' ,'22' ,'2000/07/28' ,'Technician' ,'Service' ,'Rs 24,000' ,'2022/07/01');
+select * from employee;
+alter table employee add column E_State varchar(10);
+alter table employee add primary key (E_ID);									                  /*It will set the primary key to a column*/
+desc employee;
+create table department(D_ID varchar(5), Employee_ID varchar(5) primary key, D_Location varchar(10));
+insert into department values('D1001','E1001','Mayapuri');
+insert into department values('D1002','E1002','Janpath');
+insert into department values('D1003','E1003','Jangpura');
+insert into department values('D1004','E1004','Moolchand');
+insert into department values('D1005','E1005','Munirka');
+select * from department;
+alter table department add foreign key(Employee_ID) references employee(E_ID);	/*It will set the foreign key to a column*/
+set sql_safe_updates = 0;
