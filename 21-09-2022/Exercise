@@ -1,1 +1,90 @@
+create database SQL_Practicals; /*It Will Create A Database*/
+show databases;                 /*It Will Show All The Available Databases*/
+use sql_practicals;             /*It Will Select The Given Database*
 
+/*Table → Employee
+E_ID, F_Name, L_Name, Salary, DOJoining, Department*/
+create table employee(E_ID int(5) not null primary key, F_Name char(25), L_Name char(25), Salary int(15), DOJoining date, Department char(15));
+insert into employee values('001', 'Monika', 'Arora', '100000', '2014-02-20', 'HR');
+insert into employee values('002', 'Niharika', 'Verma', '80000', '2014-06-11', 'Admin');
+insert into employee values('003', 'Vishal', 'Singhal', '300000', '2014-02-20', 'HR');
+insert into employee values('004', 'Amitabh', 'Singh', '500000', '2014-02-20', 'Admin');
+insert into employee values('005', 'Vivek', 'Bhati', '500000', '2014-06-11', 'Admin');
+insert into employee values('006', 'Vipul', 'Diwan', '200000', '2014-06-11', 'Account');
+insert into employee values('007', 'Satish', 'Kumar', '75000', '2014-01-20', 'Account');
+insert into employee values('008', 'Geetika', 'Chauhan', '90000', '2014-04-11', 'Admin');
+select * from employee;
+
+/*Table →Title
+E_REF_ID, E_Title, Affected_From*/
+create table title (E_REF_ID int(5), E_Title char(25), Affected_From date, foreign key (E_REF_ID) references Employee(E_ID) on delete cascade);
+insert into title values('001', 'Manager', '2016-02-20'),('002', 'Executive', '2016-06-11'),('008', 'Executive', '2016-06-11'),
+('005', 'Manager', '2016-06-11'),('004', 'Asst. Manager', '2016-06-11'),('007', 'Executive', '2016-06-11'),
+('006', 'Lead', '2016-06-11'),('003', 'Lead', '2016-06-11');
+select * from title;
+
+/*Q-1. Write an SQL query to fetch “F_Name” from  Employee table using the alias name as <E_Name>.*/
+select F_Name as E_Name from employee;
+/*Q-2. Write an SQL query to fetch “F_Name” from  Employee table in upper case.*/
+select upper(F_Name) as F_Name from employee;
+/*Q-3. Write an SQL query to fetch unique values of  Department from Employee table.*/
+select distinct Department from employee;
+/*Q-4. Write an SQL query to print the first three characters  of F_NAME from Employee table.*/
+select left(F_Name,3) as FirstThreeCharacter from employee;
+/*Q-5. Write an SQL query to find the position of the alphabet(‘a’) in the first name column ‘Amitabh’ from Employee table.*/
+select position("a" in "Amitabh") as AlphabetPosition;
+/*Q-6. Write an SQL query to print the F_Name from  Employee table after removing white spaces from the right side.*/
+select rtrim(F_Name) from employee;
+/*Q-7. Write an SQL query to print the Department from Employee table after removing white spaces from the left side.*/
+select ltrim(Department) from employee;
+/*Q-8. Write an SQL query that fetches the unique values of Department from Employee table and prints its length.*/
+select distinct Department, length(Department) as LengthofData from employee;
+/*Q-9. Write an SQL query to print the F_Name from  Employee table after replacing ‘a’ with ‘A’.*/
+set sql_safe_updates=0;
+update employee set F_Name = replace(F_Name,'a','A');
+select * from employee;
+/*Q-10. Write an SQL query to print the F_Name and L_Name from Employee table into a single column Complete_Name. A space char should separate them.*/
+update employee set F_Name = replace(F_Name,'A','a');
+select * , concat(F_Name,' ',L_Name) as Complete_Name from employee;
+/*Q-11. Write an SQL query to print all Employee details from the Employee table order by F_Name Ascending.*/
+select * from employee order by F_Name asc;
+/*Q-12. Write an SQL query to print all Employee details from the Employee table order by F_Name Ascending and Department Descending.*/
+select * from employee order by F_Name asc, Department desc;
+/*Q-13. Write an SQL query to print details for Employees with the first name as “Vipul” and “Satish” from Employee table.*/
+select * from employee where F_Name in ('Vipul','Satish');
+/*Q-14. Write an SQL query to print details of Employees excluding first names, “Vipul” and “Satish” from Employee table.*/
+select * from employee where F_Name not in ('Vipul','Satish');
+/*Q-15. Write an SQL query to print details of Employees  with Department name as “Admin”.*/
+select * from employee where Department = 'Admin';
+/*Q-16. Write an SQL query to print details of the  Employees whose F_Name contains ‘a’.*/
+select * from employee where F_Name like '%a%';
+/*Q-17. Write an SQL query to print details of the  Employees whose F_Name ends with ‘a’.*/
+select * from employee where right(F_Name, 1) in ('a');
+/*Q-18. Write an SQL query to print details of the Employees whose F_Name ends with ‘h’ and contains six alphabets.*/
+select * from employee where length(F_Name)=6 and right(F_Name,1) in ('h');
+/*Q-19. Write an SQL query to print details of the  Employees whose Salary lies between 100000 and 500000.*/
+select * from employee where Salary between 100000 and 500000;
+/*Q-20. Write an SQL query to print details of the  Employees who have joined in Feb’2014.*/
+select * from employee where DOJoining between '2014-02-01' and '2014-02-28';
+/*Q-21. Write an SQL query to fetch the count of employees  working in the department ‘Admin’. */
+select count(Department) from employee where Department='Admin';
+/*Q-22. Write an SQL query to fetch EMPLOYEE names with  salaries >= 50000 and <= 100000. */
+select F_Name from employee where Salary between 50000 and 100000; 
+/*Q-23. Write an SQL query to fetch the no. of Employees  for each department in the descending order. */
+select Department, count(Department) employee group by Department order by count(Department) desc;
+/*Q-24. Write an SQL query to print details of the  Employees who are also Managers. */
+select * from employee,title where employee.E_ID = title.E_REF_ID and E_Title='Manager';
+/*Q-25. Write an SQL query to fetch duplicate records having  matching data in some fields of a table. */
+select Salary,DOJoining,Department from employee group by Salary having count(*) > 1;
+select Salary,DOJoining,Department from employee group by DOJoining having count(*) > 1;
+select Salary,DOJoining,Department from employee group by Department having count(*) > 1;
+/*Q-26. Write an SQL query to show only odd rows from a  table. */
+select * from employee where E_ID % 2 = 0;
+/*Q-27. Write an SQL query to show only even rows from a  table. */
+select * from employee where E_ID % 2 <> 0;
+/*Q-28. Write an SQL query to show the current date. */
+select current_date();
+/*Q-29. Write an SQL query to show the top n (say 10)  records of a table. */
+select * from employee;
+/*Q-30. Write an SQL query to fetch three max salaries from  a table.*/
+select *, max(Salary) from employee group by Department;
