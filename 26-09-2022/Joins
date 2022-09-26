@@ -1,1 +1,17 @@
-
+/*26-09-2022 Joins:- Inner Join, Left Join, Right Join, Cross Join*/
+create table product_table(P_ID int, P_Name char(10), P_Price int, P_Category int);                                                   //Creating A Table
+insert into product_table values('1', 'Bat', '5000', '10'), ('2', 'Ball', '50', '50'), ('3', 'Stumps', '100', '30');                  //Inserting Data Into Table
+select * from product_table;                                                                                                          //Displaying A Table
+create table sale_table(S_ID int, P_Name char(10), S_Quantity int, S_Date date, S_Location char(10));
+insert into sale_table values('101', 'Bat', '100', '2022-09-19', 'Delhi'), ('102', 'Ball', '500', '2022-06-05', 'Mumbai');
+select * from sale_table;
+select * from product_table inner join sale_table on product_table.P_Name = sale_table.P_Name;                                        //Simple Inner Join 
+select p.P_ID, s.S_ID, p.P_Name, p.P_Price, s.S_Quantity from product_table as p inner join sale_table as s on p.P_Name = s.P_Name;   //Inner Join Using Alias
+select * from product_table left join sale_table on product_table.P_Name = sale_table.P_Name;                                         //Simple Left Join
+select p.P_ID, s.S_ID, p.P_Name, p.P_Price, s.S_Quantity from product_table as p left join sale_table as s on p.P_Name = s.P_Name;    //Left Join Using Alias
+select * from product_table right join sale_table on product_table.P_Name = sale_table.P_Name;                                        //Simple Right Join
+select p.P_ID, s.S_ID, p.P_Name, p.P_Price, s.S_Quantity from product_table as p right join sale_table as s on p.P_Name = s.P_Name;   //Right Join Using Alias
+select * from product_table cross join sale_table on product_table.P_Name = sale_table.P_Name;                                        //Simple Cross Join
+select p.P_ID, s.S_ID, p.P_Name, p.P_Price, s.S_Quantity from product_table as p cross join sale_table as s on p.P_Name = s.P_Name;   //Cross Join Using Alias
+select * from product_table, sale_table where product_table.P_Name = sale_table.P_Name;                                               //Simple Self Join
+select p.P_ID, s.S_ID, p.P_Name, p.P_Price, s.S_Quantity from product_table as p, sale_table as s where p.P_Name = s.P_Name;          //Self Join Using Alias
