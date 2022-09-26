@@ -1,4 +1,4 @@
-/*26-09-2022 Joins:- Inner Join, Left Join, Right Join, Cross Join*/
+/*Joins:- Inner Join, Left Join, Right Join, Cross Join*/
 create table product_table(P_ID int, P_Name char(10), P_Price int, P_Category int);                                                   //Creating A Table
 insert into product_table values('1', 'Bat', '5000', '10'), ('2', 'Ball', '50', '50'), ('3', 'Stumps', '100', '30');                  //Inserting Data Into Table
 select * from product_table;                                                                                                          //Displaying A Table
