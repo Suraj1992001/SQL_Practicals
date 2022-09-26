@@ -1,1 +1,23 @@
-
+/*Clauses:- Where, Group By, Having, Order By*/
+create table job(E_ID int, E_Name char(20), E_Salary int, E_City char(10), E_Designation char(20), E_DOJoining date); //Creating A Table
+insert into job values('1', 'Sakshi Kumari', '50000', 'Mumbai', 'Project Manager', '2021-06-20'),                     //Inserting Data Into The Table
+('2', 'Tejaswini Naik', '75000', 'Delhi', 'System Engineer', '2019-12-24'), ('3', 'Anuja Sharma', '40000', 'Jaipur', 'Manager', '2021-08-15'), 
+('4', 'Anushka Tripathi', '90000', 'Mumbai', 'Software Tester', '2021-06-13'), ('5', 'Rucha Jagtap', '45000', 'Bangalore', 'Project Manager', '2020-08-09');
+select * from job;                                                                                                    //Displaying The Table
+select * from job where E_Salary > 50000;                                                                             //Displaying The Table Using Where Clause
+set sql_safe_updates=0;                                                                                               //Setting Safe Mode For Updation
+update job set E_City = 'Jaipur' where E_Name = 'Anushka Tripathi';                                                   //Updating The Table
+select * from job;
+delete from job where E_DOJoining = '2020-08-09';                                                                     //Deleting The Data
+select * from job;
+alter table job add column E_Age int;                                                                                 //Modifying The Table
+update job set E_Age = '24' where E_ID = '1';
+update job set E_Age = '23' where E_ID = '2';
+update job set E_Age = '26' where E_ID = '3';
+update job set E_Age = '24' where E_ID = '4';
+select * from job;
+select * from job group by E_Age;                                                                                     //Displaying The Table Using Group By Clause
+select * from job having E_Salary > 50000;                                                                            //Displaying The Table Using Having Clause
+select * from job order by E_Age;                                                                                     //Displaying The Table Using Simple Order By Clause
+select * from job order by E_City desc;                                                                            //Displaying The Table Using Descending Order By Clause
+select * from job order by E_Salary asc;                                                                            //Displaying The Table Using Ascending Order By Clause
